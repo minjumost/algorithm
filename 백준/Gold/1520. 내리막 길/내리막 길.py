@@ -6,7 +6,6 @@ m, n = map(int, input().split())
 maps = [list(map(int, input().split())) for _ in range(m)]
 
 direct = [[-1, 0], [1, 0], [0, -1], [0, 1]]
-answer = 0
 visited = [[-1 for _ in range(n)] for _ in range(m)]
 
 
