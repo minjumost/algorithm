@@ -5,19 +5,22 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	static StringBuilder sb = new StringBuilder();
 	static BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+	static StringTokenizer stringTokenizer;
 	static int n;
 	static int m;
 	static boolean[] visited;
 
 	public static void main(String[] args) throws IOException {
-		String[] inputStrings = br.readLine().split(" ");
-		n = Integer.parseInt(inputStrings[0]);
-		m = Integer.parseInt(inputStrings[1]);
+		stringTokenizer = new StringTokenizer(br.readLine());
+
+		n = Integer.parseInt(stringTokenizer.nextToken());
+		m = Integer.parseInt(stringTokenizer.nextToken());
 		visited = new boolean[n + 1];
 		permutation(n, m, new ArrayList<Integer>());
 		bufferedWriter.write(sb.toString());
