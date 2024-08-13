@@ -4,34 +4,46 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-	static BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-	static StringBuilder output = new StringBuilder();
-	static StringTokenizer tokens;
-	static int N, R;
+	private static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	private static StringTokenizer stringTokenizer;
+	private static StringBuilder sb = new StringBuilder();
+
+	private static int n;
+	private static int m;
+	private static boolean[] visited;
 
 	public static void main(String[] args) throws IOException {
-		tokens = new StringTokenizer(input.readLine());
-		N = Integer.parseInt(tokens.nextToken());
-		R = Integer.parseInt(tokens.nextToken());
-		makePermutation(0, new int[R], new boolean[N]);
-		System.out.println(output);
+		stringTokenizer = new StringTokenizer(br.readLine());
+
+		n = Integer.parseInt(stringTokenizer.nextToken());
+		m = Integer.parseInt(stringTokenizer.nextToken());
+		visited = new boolean[n + 1];
+		permutation(0, new int[m]);
+		System.out.println(sb);
 	}
 
-	private static void makePermutation(final int nthChoose, int[] choosed, boolean[] visited) {
-		if (nthChoose >= R) {
-			for (int num : choosed) {
-				output.append(num).append(" ");
+	// nPm의 결과를 반환합니다.
+	static void permutation(int depth, int[] temp) {
+
+		if (depth >= m) {
+			for (int number : temp) {
+				sb.append(number).append(" ");
 			}
-			output.append("\n");
+			sb.append("\n");
 			return;
 		}
-		for (int n = 0; n < N; n++) {
-			if (!visited[n]) {
-				visited[n] = true;
-				choosed[nthChoose] = n + 1;
-				makePermutation(nthChoose + 1, choosed, visited);
-				visited[n] = false;
+
+		for (int i = 1; i <= n; i++) {
+			if (visited[i]) {
+				continue;
 			}
+			visited[i] = true;
+			temp[depth] = i;
+			permutation(depth + 1, temp);
+			visited[i] = false;
 		}
+
+		return;
 	}
+
 }
