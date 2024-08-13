@@ -1,53 +1,37 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.StringTokenizer;
 
 public class Main {
-	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	static StringBuilder sb = new StringBuilder();
-	static BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(System.out));
-	static StringTokenizer stringTokenizer;
-	static int n;
-	static int m;
-	static boolean[] visited;
+	static BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
+	static StringBuilder output = new StringBuilder();
+	static StringTokenizer tokens;
+	static int N, R;
 
 	public static void main(String[] args) throws IOException {
-		stringTokenizer = new StringTokenizer(br.readLine());
-
-		n = Integer.parseInt(stringTokenizer.nextToken());
-		m = Integer.parseInt(stringTokenizer.nextToken());
-		visited = new boolean[n + 1];
-		permutation(0, new int[m]);
-		bufferedWriter.write(sb.toString());
-		bufferedWriter.flush();
-		bufferedWriter.close();
+		tokens = new StringTokenizer(input.readLine());
+		N = Integer.parseInt(tokens.nextToken());
+		R = Integer.parseInt(tokens.nextToken());
+		makePermutation(0, new int[R], new boolean[N]);
+		System.out.println(output);
 	}
 
-	// nPm의 결과를 반환합니다.
-	static void permutation(int depth, int[] temp) {
-
-		if (depth >= m) {
-			for (int number : temp) {
-				sb.append(number + " ");
+	private static void makePermutation(final int nthChoose, int[] choosed, boolean[] visited) {
+		if (nthChoose >= R) {
+			for (int num : choosed) {
+				output.append(num).append(" ");
 			}
-			sb.append("\n");
+			output.append("\n");
 			return;
 		}
-
-		for (int i = 1; i <= n; i++) {
-			if (visited[i]) {
-				continue;
+		for (int n = 0; n < N; n++) {
+			if (!visited[n]) {
+				visited[n] = true;
+				choosed[nthChoose] = n + 1;
+				makePermutation(nthChoose + 1, choosed, visited);
+				visited[n] = false;
 			}
-			visited[i] = true;
-			temp[depth] = i;
-			permutation(depth + 1, temp);
-			visited[i] = false;
 		}
-
-		return;
 	}
-
 }
