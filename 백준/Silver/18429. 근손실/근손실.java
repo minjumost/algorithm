@@ -10,7 +10,6 @@ public class Main {
 	static int n;
 	static int k;
 	static int[] kit;
-	static boolean[] visited;
 	static int answer = 0;
 
 	public static void main(String[] args) throws IOException {
@@ -24,12 +23,12 @@ public class Main {
 			kit[i] = Integer.parseInt(stringTokenizer.nextToken());
 		}
 
-		visited = new boolean[n + 1];
-		permutation(0, new int[n]);
+		boolean[] visited = new boolean[n + 1];
+		permutation(0, new int[n], visited);
 		System.out.println(answer);
 	}
 
-	static void permutation(int length, int[] kits) {
+	static void permutation(int length, int[] kits, boolean[] visited) {
 		if (length >= n) {
 			int strength = 500;
 			for (int kit : kits) {
@@ -50,7 +49,7 @@ public class Main {
 
 			visited[i] = true;
 			kits[length] = kit[i - 1];
-			permutation(length + 1, kits);
+			permutation(length + 1, kits, visited);
 			visited[i] = false;
 		}
 	}
