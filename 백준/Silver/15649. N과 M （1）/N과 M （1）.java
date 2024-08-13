@@ -3,8 +3,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
@@ -22,16 +20,16 @@ public class Main {
 		n = Integer.parseInt(stringTokenizer.nextToken());
 		m = Integer.parseInt(stringTokenizer.nextToken());
 		visited = new boolean[n + 1];
-		permutation(n, m, new ArrayList<Integer>());
+		permutation(0, new int[m]);
 		bufferedWriter.write(sb.toString());
 		bufferedWriter.flush();
 		bufferedWriter.close();
 	}
 
 	// nPm의 결과를 반환합니다.
-	static void permutation(int n, int m, List<Integer> temp) {
+	static void permutation(int depth, int[] temp) {
 
-		if (temp.size() == m) {
+		if (depth >= m) {
 			for (int number : temp) {
 				sb.append(number + " ");
 			}
@@ -44,9 +42,8 @@ public class Main {
 				continue;
 			}
 			visited[i] = true;
-			temp.add(i);
-			permutation(n, m, temp);
-			temp.remove((Object)i);
+			temp[depth] = i;
+			permutation(depth + 1, temp);
 			visited[i] = false;
 		}
 
