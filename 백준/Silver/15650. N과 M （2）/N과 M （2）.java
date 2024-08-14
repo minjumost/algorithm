@@ -19,14 +19,15 @@ public class Main {
 		visited = new boolean[N + 1];
 
 		permutation(0, new int[M]);
+		System.out.println(stringBuilder);
 	}
 
 	static void permutation(int depth, int[] temp) {
 		if (depth >= M) {
 			for (int num : temp) {
-				System.out.print(num + " ");
+				stringBuilder.append(num).append(" ");
 			}
-			System.out.println();
+			stringBuilder.append("\n");
 			return;
 		}
 
